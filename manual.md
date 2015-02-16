@@ -420,6 +420,8 @@ that is specified for this value is actually the result of adding one of
 the format mode values, plus optionally one or more of the additional
 flags. The format mode values available are:
 
+| style | format | mode value |
+| ----- | ------ | ---------: |
 | old-style | `MM/DD/YY HH:MM:SS` | 1 |
 | new-style | `YYYY-MM-DD HH:MM:SS` | 2 |
 | client-style | `Mmm DD HH:MM:SS` | 3 |
@@ -427,8 +429,10 @@ flags. The format mode values available are:
 
 And the multiple flags that you can choose are:
 
-| show timezone name | 64 |
-| timestamps should be in UTC | 128 |
+| flag 				| flag bit value |
+| -----------------		| ---------: |
+| show timezone name		| 64 |
+| timestamps should be in UTC	| 128 |
 
 
 Note that the "show timezone name (64)" only has an effect if timestamps
