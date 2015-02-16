@@ -276,18 +276,17 @@ clients. This option only has effect on the win32 version of the proxy.
 If you are behind a firewall and must use a proxy to make a connection
 on either a telnet or http port, the following options will be useful.
 
-**[KeyServer]/uuehttpmode:** 0=no special encoding, 1=uue encoding (non
+* **[KeyServer]/uuehttpmode:** `0=no special encoding, 1=uue encoding (non
 8-bit clean redirect proxies), 2=http encoding, 3=uue+http encoding,
 4=socks4 encoding, 5=socks5 encoding, 6=generic proxy, 7=generic proxy
-with uue encoding.\
- For an explanation on generic proxy support, [see
+with uue encoding.` For an explanation on generic proxy support, [see
 below.](#config-generic-proxy-mode)
 
-**[KeyServer]/httpproxy:** The name of your site's http or telnet proxy.
+* **[KeyServer]/httpproxy:** The name of your site's http or telnet proxy.
 
-**[KeyServer]/httpport:** The port to connect to the above proxy on.
+* **[KeyServer]/httpport:** The port to connect to the above proxy on.
 
-**[KeyServer]/httpid:** User and password authentication needed to
+* **[KeyServer]/httpid:** User and password authentication needed to
 connect to the above proxy. This field must be set to the \*encrypted\*
 value of the username and password information. In order to get this
 value, use the client's configuration option to specify the username and
@@ -297,7 +296,7 @@ all done with this. For socks4 httpid is the "username" in plaintext.
 For socks5 httpid is the "username:password" in plaintext. For generic
 proxy, this is the connection negotiation string.
 
-**[KeyServer]/bindip:** Specifies the local interface address that
+* **[KeyServer]/bindip:** Specifies the local interface address that
 should be bound to when creating outgoing server connections. This might
 be useful if your machine has multiple interfaces and you wish to listen
 for incoming clients on an internal network, and make outgoing internet
@@ -305,7 +304,7 @@ connections on a public network interface. If you leave this option
 unspecified, it allows the network stack to do default interface and
 routing rules to create connections.
 
-**[KeyServer]/maxservers:** Determines the maximum number of
+* **[KeyServer]/maxservers:** Determines the maximum number of
 simultaneous upstream server connections will be used to fetch or flush.
 It might be useful to increase this number if you frequently need to
 upload or download a large number of blocks at a single time, and it
@@ -393,19 +392,19 @@ options are none, hourly, daily, monthly, yearly, or startup
 **[console]/consoleverbosity:** control verbosity of the console log
 output. It is specified with a list of space-separated keywords:
 
--   all : display all message types (default)\
--   none : no console output at all\
--   general : General logging (Status: Slot X LISTENING, and others)\
--   stats : Periodic statistics reports\
--   keyblock : Block numbers\
--   server : Upstream keyserver communications\
--   client : Downstream client communications\
+-   all : display all message types (default)
+-   none : no console output at all
+-   general : General logging (Status: Slot X LISTENING, and others)
+-   stats : Periodic statistics reports
+-   keyblock : Block numbers
+-   server : Upstream keyserver communications
+-   client : Downstream client communications
 -   buffers : statistics (ready=X/X, done=X, Xd XX:XX:XX, X.X
-    Mkeys/sec)\
--   timestamp : Include UTC timestamps on each line (screen only)\
--   attention : Keyspace change, time change, dialup events\
--   errwarn : Unrecognized opcodes/version\
--   errlow : Invalid settings\
+    Mkeys/sec)
+-   timestamp : Include UTC timestamps on each line (screen only)
+-   attention : Keyspace change, time change, dialup events
+-   errwarn : Unrecognized opcodes/version
+-   errlow : Invalid settings
 -   errsevere : Operation inhibiting problems
 
 If the very first keyword is "not", the verbosity will be "all", minus
@@ -537,7 +536,7 @@ in multiples of this value.
 
 ### Other Projects {align="center"}
 
-****[ogrng]/[ogrp2]/[desII]/[csc]/[ogr]/[rc564]****\
+****[ogrng]/[ogrp2]/[desII]/[csc]/[ogr]/[rc564]****
  see the [rc5-72] section for the entries that you can put here, and
 what they do....
 
@@ -545,14 +544,14 @@ what they do....
 
 ### Access Control {align="center"}
 
-**[ignoredip]/[allowedip]**\
+**[ignoredip]/[allowedip]**
  These two sections provide functionality for allowing and denying
-certain ipaddresses or ipaddress ranges.\
- The rules are:\
+certain ipaddresses or ipaddress ranges.
+ The rules are:
  a. if there are entries in [allowedip], only allow clients in that
-section, else\
+section, else
  b. if there are entries in [ignoredip], deny all clients in that
-section, else\
+section, else
  c. allow the connection
 
 This is equivalent with the behavior of the tcpd wrapper in Unix
@@ -604,7 +603,7 @@ the sequence string is of course stored in plaintext in your ini file,
 if you include connection passwords, they could be compromised if you do
 not protect your ini file.
 
-One example for connecting to a gateway machine is:\
+One example for connecting to a gateway machine is:
 
   --- ----------------------------------------------------------
       `"|login:|bovine\n|Password:|moocow\n|%|telnet \1 \2\n"`
@@ -639,14 +638,14 @@ Some messages explained:
 
 -   `contest <contest> r=<a>/<b>, d=<c>/<d>, <avg>Mkeys/s,   total=<blocks>`
 
-    a/b = a blocks currently in inbuffer, b is threshold.\
+    a/b = a blocks currently in inbuffer, b is threshold.
      c/d = c blocks done, d is threshold
 
 -   `Server xx.xx.xx.xx changed state from x to x`
 
-    state 0 is a no connection\
-     state 1 is waiting for connection to be set up\
-     state 50 is a connected connection\
+    state 0 is a no connection
+     state 1 is waiting for connection to be set up
+     state 50 is a connected connection
      state 51 is a dead connection
 
 -   `Contesthandler <contest> didn't handle a packet `
@@ -794,511 +793,59 @@ failed: No such file or directory", you must install the patch.
 Here is the list of CPU and OS identifiers previously mentioned in the
 keyblock log section above.
 
-**CPU types:**
+   **CPU types:                  OS types:**
+   UNKNOWN             0         UNKNOWN             0
+   X86                 1         WIN32               1
+   POWERPC             2         DOS                 2
+   MIPS                3         FREEBSD             3
+   ALPHA               4         LINUX               4
+   PA_RISC             5         BEOS                5
+   68K                 6         MACOS               6
+   SPARC               7         IRIX                7
+   SH4                 8         VMS                 8
+   POWER               9         DEC_UNIX            9
+   VAX                 10        UNIXWARE            10
+   ARM                 11        OS2                 11
+   88K                 12        HPUX                12
+   IA64                13        NETBSD              13
+   S390                14        SUNOS               14
+   UNUSED              15        SOLARIS             15
+   DESCRACKER          16        UNUSED              16
+   AMD64               17        UNUSED              17
+   CELLBE              18        BSDOS               18
+   CUDA                19        NEXTSTEP            19
+   AMD_STREAM          20        SCO                 20
+                                 QNX                 21
+                                 UNUSED              22
+                                 UNUSED              23
+                                 UNUSED              24
+                                 AIX                 25
+                                 UNUSED              26
+                                 OSX                 27
+                                 AMIGAOS             28
+                                 OPENBSD             29
+                                 NETWARE             30
+                                 MVS                 31
+                                 ULTRIX              32
+                                 UNUSED              33
+                                 RISCOS              34
+                                 DGUX                35
+                                 WIN32S              36
+                                 SINIX               37
+                                 DYNIX               38
+                                 OS390               39
+                                 UNUSED              40
+                                 WIN16               41
+                                 DESCRACKER          42
+                                 MAC OSX             43
+                                 PS2 LINUX           44
+                                 MORPHOS             45
+                                 WIN64               46
+                                 NETWARE6            47
+                                 DRAGONFLY           48
+                                 HAIKU               49
 
-**OS types:**
 
-UNKNOWN
-
-0
-
- 
-
-UNKNOWN
-
-0
-
-X86
-
-1
-
- 
-
-WIN32
-
-1
-
-POWERPC
-
-2
-
- 
-
-DOS
-
-2
-
-MIPS
-
-3
-
- 
-
-FREEBSD
-
-3
-
-ALPHA
-
-4
-
- 
-
-LINUX
-
-4
-
-PA\_RISC
-
-5
-
- 
-
-BEOS
-
-5
-
-68K
-
-6
-
- 
-
-MACOS
-
-6
-
-SPARC
-
-7
-
- 
-
-IRIX
-
-7
-
-SH4
-
-8
-
- 
-
-VMS
-
-8
-
-POWER
-
-9
-
- 
-
-DEC\_UNIX
-
-9
-
-VAX
-
-10
-
- 
-
-UNIXWARE
-
-10
-
-ARM
-
-11
-
- 
-
-OS2
-
-11
-
-88K
-
-12
-
- 
-
-HPUX
-
-12
-
-IA64
-
-13
-
- 
-
-NETBSD
-
-13
-
-S390
-
-14
-
- 
-
-SUNOS
-
-14
-
-UNUSED
-
-15
-
- 
-
-SOLARIS
-
-15
-
-DESCRACKER
-
-16
-
- 
-
-UNUSED
-
-16
-
-AMD64
-
-17
-
- 
-
-UNUSED
-
-17
-
-CELLBE
-
-18
-
- 
-
-BSDOS
-
-18
-
-CUDA
-
-19
-
- 
-
-NEXTSTEP
-
-19
-
-AMD\_STREAM
-
-20
-
- 
-
-SCO
-
-20
-
- 
-
- 
-
- 
-
-QNX
-
-21
-
- 
-
- 
-
- 
-
-UNUSED
-
-22
-
- 
-
- 
-
- 
-
-UNUSED
-
-23
-
- 
-
- 
-
- 
-
-UNUSED
-
-24
-
- 
-
- 
-
- 
-
-AIX
-
-25
-
- 
-
- 
-
- 
-
-UNUSED
-
-26
-
- 
-
- 
-
- 
-
-OSX
-
-27
-
- 
-
- 
-
- 
-
-AMIGAOS
-
-28
-
- 
-
- 
-
- 
-
-OPENBSD
-
-29
-
- 
-
- 
-
- 
-
-NETWARE
-
-30
-
- 
-
- 
-
- 
-
-MVS
-
-31
-
- 
-
- 
-
- 
-
-ULTRIX
-
-32
-
- 
-
- 
-
- 
-
-UNUSED
-
-33
-
- 
-
- 
-
- 
-
-RISCOS
-
-34
-
- 
-
- 
-
- 
-
-DGUX
-
-35
-
- 
-
- 
-
- 
-
-WIN32S
-
-36
-
- 
-
- 
-
- 
-
-SINIX
-
-37
-
- 
-
- 
-
- 
-
-DYNIX
-
-38
-
- 
-
- 
-
- 
-
-OS390
-
-39
-
- 
-
- 
-
- 
-
-UNUSED
-
-40
-
- 
-
- 
-
- 
-
-WIN16
-
-41
-
- 
-
- 
-
- 
-
-DESCRACKER
-
-42
-
- 
-
- 
-
- 
-
-MAC OSX
-
-43
-
- 
-
- 
-
- 
-
-PS2 LINUX
-
-44
-
- 
-
- 
-
- 
-
-MORPHOS
-
-45
-
- 
-
- 
-
- 
-
-WIN64
-
-46
-
- 
-
- 
-
- 
-
-NETWARE6
-
-47
-
- 
-
- 
-
- 
-
-DRAGONFLY
-
-48
-
- 
-
- 
-
- 
-
-HAIKU
-
-49
-
- 
 
 ### Additional Support {align="left"}
 
