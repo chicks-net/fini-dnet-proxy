@@ -90,8 +90,8 @@ consistent across proxy versions, platforms, and operating systems.
 There are currently 3 main types of proxy buffers that you need to keep
 in mind before you considering transporting buffers:
 
--   ~~Format A: up to and inclusive of proxy build 283.~~(obsolete)
--   ~~Format B: proxy build 300 through 304, inclusive.~~(obsolete)
+-   ~~Format A: up to and inclusive of proxy build 283.~~ (obsolete)
+-   ~~Format B: proxy build 300 through 304, inclusive.~~ (obsolete)
 -   Format C: proxy build 305 to current, inclusive. (current)
 
 Format A is completely obsolete. Format B used an experimental
@@ -109,10 +109,10 @@ is incompatible with the last version you were using, there is no way to
 convert them. You must flush all blocks from the existing proxy buffers.
 To do this, set maxkeysdone=1, then start the proxy. It should flush all
 blocks to the keyservers. If you don't want clients to connect to your
-proxy during this process, set the "acceptincoming"-flag in the [ports]
+proxy during this process, set the `acceptincoming`-flag in the [ports]
 section to 0 (zero).
 
-After you see a logentry with "rc5-72 r=x/x, d=0/1" you know your
+After you see a logentry with `rc5-72 r=x/x, d=0/1` you know your
 buffers are empty. Shutdown the proxy and delete all bufferfiles
 (ppdes\*.des and pprc5\*.rc5) It is safe to simply delete the inbuff
 files, even if they have keys left in them. They will eventually be
@@ -262,14 +262,14 @@ is unable to successfully make outgoing server connections.
 offline, lurk, and lurkonly modes that are available on the windows
 clients. This option only has effect on the win32 version of the proxy.
 
--   "normal" : The proxy will attempt to connect to a server as needed.
--   "offline" : The proxy will not attempt to make any connections to a
+-   `normal` : The proxy will attempt to connect to a server as needed.
+-   `offline` : The proxy will not attempt to make any connections to a
     server automatically.
--   "lurk" : The proxy will automatically send/receive blocks when it
+-   `lurk` : The proxy will automatically send/receive blocks when it
     detects a network connection, but it may also initiate connection by
     itself if it needs to send or receive blocks. If you have autodial
     configured, then your modem will auto-dial.
--   "lurkonly" : Same as lurk, however the proxy will not attempt to
+-   `lurkonly` : Same as lurk, however the proxy will not attempt to
     make connections unless it can explicitly detect that your modem is
     currently connected, so it won't ever cause auto-dial.
 
@@ -292,8 +292,8 @@ value of the username and password information. In order to get this
 value, use the client's configuration option to specify the username and
 password, then cut and paste that field from the client .ini to your
 proxy .ini. Remember to restore the client configuration when you are
-all done with this. For socks4 httpid is the "username" in plaintext.
-For socks5 httpid is the "username:password" in plaintext. For generic
+all done with this. For socks4 httpid is the `username` in plaintext.
+For socks5 httpid is the `username:password` in plaintext. For generic
 proxy, this is the connection negotiation string.
 
 * **[KeyServer]/bindip:** Specifies the local interface address that
@@ -392,73 +392,44 @@ options are none, hourly, daily, monthly, yearly, or startup
 **[console]/consoleverbosity:** control verbosity of the console log
 output. It is specified with a list of space-separated keywords:
 
--   all : display all message types (default)
--   none : no console output at all
--   general : General logging (Status: Slot X LISTENING, and others)
--   stats : Periodic statistics reports
--   keyblock : Block numbers
--   server : Upstream keyserver communications
--   client : Downstream client communications
--   buffers : statistics (ready=X/X, done=X, Xd XX:XX:XX, X.X
+-   `all` : display all message types (default)
+-   `none` : no console output at all
+-   `general` : General logging (Status: Slot X LISTENING, and others)
+-   `stats` : Periodic statistics reports
+-   `keyblock` : Block numbers
+-   `server` : Upstream keyserver communications
+-   `client` : Downstream client communications
+-   `buffers` : statistics (ready=X/X, done=X, Xd XX:XX:XX, X.X
     Mkeys/sec)
--   timestamp : Include UTC timestamps on each line (screen only)
--   attention : Keyspace change, time change, dialup events
--   errwarn : Unrecognized opcodes/version
--   errlow : Invalid settings
--   errsevere : Operation inhibiting problems
+-   `timestamp` : Include UTC timestamps on each line (screen only)
+-   `attention` : Keyspace change, time change, dialup events
+-   `errwarn` : Unrecognized opcodes/version
+-   `errlow` : Invalid settings
+-   `errsevere` : Operation inhibiting problems
 
-If the very first keyword is "not", the verbosity will be "all", minus
-the keywords specified. For example, "not keyblock client" will prevent
+If the very first keyword is `not`, the verbosity will be `all`, minus
+the keywords specified. For example, `not keyblock client` will prevent
 messages in the keyblock or in the client categories from displayed; all
 other messages are displayed.
 
 **[console]/timestampflags:** controls the format that is used to
 display timestamps on screen, logged in the console log, and logged in
 keyblock logs. Note that timestamps in the onscreen console log can be
-hidden entirely with the "consoleverbosity" option above. The integer
+hidden entirely with the `consoleverbosity` option above. The integer
 that is specified for this value is actually the result of adding one of
 the format mode values, plus optionally one or more of the additional
 flags. The format mode values available are:
 
- 
-
- 
-
-old-style MM/DD/YY HH:MM:SS
-
-1
-
- 
-
-new-style YYYY-MM-DD HH:MM:SS
-
-2
-
- 
-
-client-style Mmm DD HH:MM:SS
-
-3
-
+| old-style | `MM/DD/YY HH:MM:SS` | 1 |
+| new-style | `YYYY-MM-DD HH:MM:SS` | 2 |
+| client-style | `Mmm DD HH:MM:SS` | 3 |
  
 
 And the multiple flags that you can choose are:
 
- 
+| show timezone name | 64 |
+| timestamps should be in UTC | 128 |
 
-show timezone name
-
-64
-
- 
-
-timestamps should be in UTC
-
-128
-
- 
-
- 
 
 Note that the "show timezone name (64)" only has an effect if timestamps
 are being "displayed in UTC format (128)". When that is the case, the
@@ -514,7 +485,7 @@ valid range is 6-2016 (5 hour - 1 weeks).
 sliding-average window. The default is 300 (5 minutes). Valid range is
 between 1 minute and 30 minutes. This option is added for people who
 desperately need a window bigger than 1 week. Be aware that changing the
-defaults of "timeaverage" and "timeavgchunks" is not recommended. Too
+defaults of `timeaverage` and `timeavgchunks` is not recommended. Too
 high values can lead to an increase in resources needed to track the
 stats.
 
@@ -529,7 +500,7 @@ able to request blocks larger than the size your proxy currently has
 available, since the proxy cannot combine smaller blocks together. Be
 aware that when your proxy requests additional workunits from the
 upstream server, this blocksize value may cause your proxy to
-temporarily exceed the "maxkeysready" since requests will always be done
+temporarily exceed the `maxkeysready` since requests will always be done
 in multiples of this value.
 
  
@@ -537,7 +508,7 @@ in multiples of this value.
 ### Other Projects
 
 ****[ogrng]/[ogrp2]/[desII]/[csc]/[ogr]/[rc564]****
- see the [rc5-72] section for the entries that you can put here, and
+ see the `[rc5-72]` section for the entries that you can put here, and
 what they do....
 
  
@@ -546,16 +517,13 @@ what they do....
 
 **[ignoredip]/[allowedip]**
  These two sections provide functionality for allowing and denying
-certain ipaddresses or ipaddress ranges.
- The rules are:
- a. if there are entries in [allowedip], only allow clients in that
-section, else
- b. if there are entries in [ignoredip], deny all clients in that
-section, else
- c. allow the connection
+certain ipaddresses or ipaddress ranges.  The rules are:
 
-This is equivalent with the behavior of the tcpd wrapper in Unix
-systems.
+a. if there are entries in `[allowedip]`, only allow clients in that section, else
+b. if there are entries in `[ignoredip]`, deny all clients in that section, else
+c. allow the connection
+
+This is equivalent with the behavior of the tcpd wrapper in Unix systems.
 
 After the section header, ip(-ranges) are listed in the form:
 
@@ -699,22 +667,22 @@ numbers](#cpuosnumbers).
 
 ### OPERATIONS AND SIGNALS
 
-On UNIX, sending a TERM or INT signal will cause the personal proxy to
+On UNIX, sending a `TERM` or `INT` signal will cause the personal proxy to
 shut down nicely, re-saving all keyblocks that are still in memory to
 disk, and closing all open network connections.
 
-On UNIX, sending a HUP signal will cause the personal proxy to reload
+On UNIX, sending a `HUP` signal will cause the personal proxy to reload
 its ini configuration file and reread most of the settings specified
 within it.
 
-On UNIX, sending an ALRM signal will trigger the personal proxy to
+On UNIX, sending an `ALRM` signal will trigger the personal proxy to
 create an outgoing server connection. This is done even if your
 connectivity mode is set to offline. This behavior is intentional, and
 permits clever scripters to automate periodic dial-ups and forced server
 flushes.
 
 On Win95/98/NT, when running the proxy in a window you can press
-Ctrl-Break at any time to perform the equivalent of a HUP+ALRM signal on
+Ctrl-Break at any time to perform the equivalent of a `HUP+ALRM` signal on
 UNIX. To actually close the proxy, press Ctrl-C or close window.
 
 On OS/2 you can press Ctrl-C to force a reload of the ini file and
@@ -783,8 +751,8 @@ The personal proxy requires Solaris 2.6 or greater to run.
 Solaris 2.6 requires Sun Patch ID \#105591 which is available from
 [http://sunsolve.sun.com/](http://sunsolve.sun.com/) in order to run the
 personal proxy. Other Solaris versions may require a similar patch. If
-you encounter the error "ld.so.1: proxyper: fatal: libCrun.so.1: open
-failed: No such file or directory", you must install the patch.
+you encounter the error `ld.so.1: proxyper: fatal: libCrun.so.1: open
+failed: No such file or directory`, you must install the patch.
 
  
 
@@ -793,57 +761,57 @@ failed: No such file or directory", you must install the patch.
 Here is the list of CPU and OS identifiers previously mentioned in the
 keyblock log section above.
 
-   **CPU types:                  OS types:**
-   UNKNOWN             0         UNKNOWN             0
-   X86                 1         WIN32               1
-   POWERPC             2         DOS                 2
-   MIPS                3         FREEBSD             3
-   ALPHA               4         LINUX               4
-   PA_RISC             5         BEOS                5
-   68K                 6         MACOS               6
-   SPARC               7         IRIX                7
-   SH4                 8         VMS                 8
-   POWER               9         DEC_UNIX            9
-   VAX                 10        UNIXWARE            10
-   ARM                 11        OS2                 11
-   88K                 12        HPUX                12
-   IA64                13        NETBSD              13
-   S390                14        SUNOS               14
-   UNUSED              15        SOLARIS             15
-   DESCRACKER          16        UNUSED              16
-   AMD64               17        UNUSED              17
-   CELLBE              18        BSDOS               18
-   CUDA                19        NEXTSTEP            19
-   AMD_STREAM          20        SCO                 20
-                                 QNX                 21
-                                 UNUSED              22
-                                 UNUSED              23
-                                 UNUSED              24
-                                 AIX                 25
-                                 UNUSED              26
-                                 OSX                 27
-                                 AMIGAOS             28
-                                 OPENBSD             29
-                                 NETWARE             30
-                                 MVS                 31
-                                 ULTRIX              32
-                                 UNUSED              33
-                                 RISCOS              34
-                                 DGUX                35
-                                 WIN32S              36
-                                 SINIX               37
-                                 DYNIX               38
-                                 OS390               39
-                                 UNUSED              40
-                                 WIN16               41
-                                 DESCRACKER          42
-                                 MAC OSX             43
-                                 PS2 LINUX           44
-                                 MORPHOS             45
-                                 WIN64               46
-                                 NETWARE6            47
-                                 DRAGONFLY           48
-                                 HAIKU               49
+        **CPU types:                  OS types:**
+        UNKNOWN             0         UNKNOWN             0
+        X86                 1         WIN32               1
+        POWERPC             2         DOS                 2
+        MIPS                3         FREEBSD             3
+        ALPHA               4         LINUX               4
+        PA_RISC             5         BEOS                5
+        68K                 6         MACOS               6
+        SPARC               7         IRIX                7
+        SH4                 8         VMS                 8
+        POWER               9         DEC_UNIX            9
+        VAX                 10        UNIXWARE            10
+        ARM                 11        OS2                 11
+        88K                 12        HPUX                12
+        IA64                13        NETBSD              13
+        S390                14        SUNOS               14
+        UNUSED              15        SOLARIS             15
+        DESCRACKER          16        UNUSED              16
+        AMD64               17        UNUSED              17
+        CELLBE              18        BSDOS               18
+        CUDA                19        NEXTSTEP            19
+        AMD_STREAM          20        SCO                 20
+                                      QNX                 21
+                                      UNUSED              22
+                                      UNUSED              23
+                                      UNUSED              24
+                                      AIX                 25
+                                      UNUSED              26
+                                      OSX                 27
+                                      AMIGAOS             28
+                                      OPENBSD             29
+                                      NETWARE             30
+                                      MVS                 31
+                                      ULTRIX              32
+                                      UNUSED              33
+                                      RISCOS              34
+                                      DGUX                35
+                                      WIN32S              36
+                                      SINIX               37
+                                      DYNIX               38
+                                      OS390               39
+                                      UNUSED              40
+                                      WIN16               41
+                                      DESCRACKER          42
+                                      MAC OSX             43
+                                      PS2 LINUX           44
+                                      MORPHOS             45
+                                      WIN64               46
+                                      NETWARE6            47
+                                      DRAGONFLY           48
+                                      HAIKU               49
 
 
 
