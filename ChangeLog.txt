@@ -1,0 +1,478 @@
+$Id: ChangeLog.txt,v 1.42 2009/01/26 21:08:22 jlawson Exp $
+
+; an enduser global overview of changes
+
+=== build 347 ===
+
+Correct a calculation error during block splitting.
+
+=== build 346 ===
+
+Add "Server:" header to all HTTP responses including proxy version.
+
+Refine enforced rc5-72 block size ranges to allow CUDA/PS3/STREAM
+platforms to have higher limits than others.  Disable large block
+sizes to older proxies and clients that do not support it.
+
+Allow blocksize used in proxy requests to upstream be configured.
+
+Add logic to not distribute OGR-NG blocks to clients earlier than
+build 509 or proxies earlier than build 346 once OGR-27 begins.
+
+=== build 345 ===
+
+not released
+
+=== build 344 ===
+
+Add support for larger block sizes in rc5-72 (#3918)
+
+keymaster: allow ircmonitor settings to be overriden in ini file.
+
+keymaster: fix ogr recycle delay logic to avoid excessive waiting
+after recycling a short stubspace.
+
+=== build 343 ===
+
+First version to support [ogrng] project.
+
+Automatic buffer size calculation works for rc5-72
+
+"connectperiod"/"statusperiod" works correctly for all projects
+
+=== build 341 ===
+
+First version to support [ogrp2] project.  This version will only connect
+to upstream servers of at least build 341.
+
+=== build 335 ===
+
+OGR is no longer supported for clients below v2.8015.469 anymore.
+
+"[ports]/timeout" sets maximum idle time for client connections (#2971)
+
+perproxy: fix slow uplink connections for rc5-72 and ogr contents (#2951)
+
+=== build 334 ===
+
+internal cleanup, no user-visible changes.
+
+=== build 333 ===
+
+if local DNS is not available, use remote resolving for SOCKS5 proxy
+
+disallow *.v27.distributed.net as upstream keyserver address.
+
+enforce that the [rc5-72] and [ogr] sections exist in the ini file. 
+
+keymaster: track fullserver dns zones independently in XML proxyinfo
+for easier processing with XSL.
+
+when accepting new client connections and maximum concurrent connection
+limit has been reached, only disconnect the oldest connection if it
+has been idle at least 10 seconds.
+
+clarify up some error messages.
+
+clean up manual html slightly.
+
+=== build 332 ===
+
+fullserver/proxyper: fix regression in false RC5-64 project status
+transmission for buggy clients.
+
+fullserver/proxyper: fix average rate computation for RC5-72.
+
+
+=== build 331 ===
+
+remove des and csc project support from build.
+
+rename rc5 project text and source files to more explicitly state
+rc5-64.
+
+add rc5-72 project support.  ini file section name is [rc5-72] for
+consistency with the client.
+
+add new v2.90xx client support (with core number reporting).
+
+lots of code formatting cleanup and doxygen comments added.
+
+enforce minimum upstream server build of 330.
+
+proxyper: add OS/2 \\pipe\proxyper signal support
+
+convert manual to html format for easier reading.
+
+
+=== build 325b (internal release only) ===
+
+fullserver: add workaround to send false RC5-64 project status and
+fake blocks to buggy v2.8010 clients.
+
+
+=== build 325 (internal release only) ===
+
+fullserver: alter block splitting order algorithm to reduce
+fragmentation slightly.
+
+fullserver/proxyper: reinstate dupe-checking and dupe-logging for
+RC5-64 using completely rewritten STL implementation.
+
+fullserver: alter network flushing agressiveness for upstream server
+traffic.
+
+keymaster: add extra disk log error checking and initiate shutdown on
+disk failure.
+
+keymaster: multithreaded project eating and generation support and
+significant thread-safety added everywhere.  now each project on the
+keymaster utilizes a separate thread for eating and generating (rather
+than one thread that shared the two activities), since the two
+activities take different amounts of time.
+
+keymaster: add XML-based proxyinfo data publication.
+
+keymaster: fix rare memory access-violation when generating the last
+block within a subspace, which tried to span beyond the limit.
+
+code cleanup, move many global settings into ProxyGlobals structure,
+move iniread into iniclass, util into dctiutil, add threading
+abstraction module.
+
+
+=== build 321 (internal release only) ===
+
+fullserver and keymaster only:  replace DCTI_FileBuffer (filebuff.cpp)
+with CircularBuffer (circbuff.cpp) implementation.  proxyper still
+uses filebuff.
+
+change RC5-64 and OGR file buffer identifier constants to prevent
+version conflicts.
+
+
+
+=== build 319c (12 Sept 2000) ===
+
+win32 version can now be signalled to flush, quit, or reload its
+configuration by an external program that opens and signals events
+named "ProxyperConnectEvent", "ProxyperShutdownEvent", or 
+"ProxyperReloadEvent" respectively. [319b fixed permission problem
+when the proxy is running as a service on NT/Win2k]
+
+fixed regression bug introduced in 316 that prevented reload signals
+from properly reloading all contest configuration options.
+
+optimal block selection algorithm on personal proxy modified to
+no longer search the entire in-buff for a block large enough when an
+incoming client requests a block.  Now only searches the first 32
+blocks for a work unit large enough.
+
+participation in contests can now be entirely disabled by setting
+the "contestclosed" entry within your INI to a negative value.
+
+[keyserver]/serveridletimeout added to allow persistent server
+connections to time out more rapidly, particularly for people on ISDN
+or dialup connections.
+
+minimum blocksize enforcement code removed from personal proxy builds,
+only fullserver enforces minimum sizes now.
+
+
+=== build 318 (14 Jul 2000) ===
+
+experimental minimum blocksize enforcement code added to fullserver
+and personal.
+
+
+=== build 317 (not publicly released) ===
+
+contest OGR is reported as always being closed and out of blocks to
+clients earlier than 2.8009, since they are not supported for OGR.
+
+[console]/logfilepurgeage and contest/logfilepurgeage support added.
+automatically keeps only the "n" most recent log files after rotating,
+and automatically deletes older ones.
+
+
+=== build 316 (not publicly released) ===
+
+changed winnt service startup dependence from NetworkProvider to
+simply Tcpip.  You need to -uninstall and -install again to get
+updated service dependencies.
+
+on UNIX, sending SIGUSR1 will force the proxy into offline mode
+(regardless of what is in the ini file), and SIGUSR2 will return
+it to whatever mode is specified in the ini.  This can be used
+with cron scripting to create "no connection" time periods.
+
+there have again been major rewrites and reorganization to the proxy
+codebase to enable easier support for future contests that are not
+crypto-key based in nature.
+
+proxy status lines are now supressed for closed contests.
+
+corrected period at which the proxy buffer files are rewritten.
+They were being incorrectly rewritten on every cycle, instead of
+once per workperiod, which would result in poor performance.
+
+ogr contest now reports more accurate node speeds, since the sliding
+average now uses the full nodecount, instead of just the upper 32-bits.
+
+changed the "tot=" portion of the ogr status line to report total
+stubs (instead of just the upper 32-bits of total nodes) that have
+been received.
+
+the frequency at which the proxy buffers are rewritten to disk can now
+be independently controlled with [misc]/periodicperiod (it was
+previously simultaneously done at the same interval as
+[misc]/statusperiod).
+
+
+=== build 315 (not publicly released) ===
+
+corrected logging of the scheduledupdatetime when a new time is first
+received from the upstream keyserver.
+
+corrected improper upstream transmission of OGR stubs with invalid
+stub counts, which could cause it to never upload some blocks under
+certain conditions.
+
+
+=== build 314 (14 Feb 2000) ===
+
+corrected 64-bit sign-extension errors when logging keyblocks on
+64-bit (ie: Alpha) platforms.
+
+
+=== build 313 (26 Jan 2000) ===
+
+timestamp format can now be adjusted via ini file.
+
+log formatting for ogr stub/nodes changed to accomodate greater size.
+
+
+=== build 312 (13 Jan 2000) ===
+
+number of stubs sent/received during a server connection are now
+properly tracked and logged.  
+
+win32 console titlebar now only includes open contests.
+
+changed logcompressor invocation to use rfork() on freebsd, and vfork()
+on other platforms.  rfork() allows us to explicitly disable filehandle
+inheritance to children processes.
+
+Corrected bug in cyp's rewrite of netio_resolve that prevented
+detection of NULL return values from gethostbyname (failed to
+resolve), which usually led the caller to believe that it was
+successfully able to resolve 255.255.255.255
+
+fixed bug that would cause a personal proxy compiled
+without lurk support to connect to the server on threshold surpassment
+even in offline mode.
+
+changed messages to display "(thresholds exceeded)" instead of
+"(connect period elapsed)"
+
+
+=== build 311 (8 Nov 1999) ===
+
+Official release for CSC contest support.  All proxies/servers must be
+updated to 311+ to support CSC, otherwise the version information will be
+lost during retransmission upstream (311 now removes the version check).
+
+sigio optimizations on freebsd now disabled, since it was found to
+cause network stalling.
+
+average rate computation for ogr added.  Contest rate summaries now can
+include customized rate labels.  OGR displays units as "Mnodes/sec"
+
+discarded client subbuild version check.
+
+if pkt->id is 'rc5@distributed.net' log it to logfile (and only there) as ""
+for perproxy logs: if id==rc5@distributed.net then id=nobody@[ipaddress].
+
+
+=== build 309 (15 Jul 1999) ===
+
+contest open and closure enhanced on master to not allow reopening
+without restart.  also eliminated need for full generator initialization
+on rc5/des/ogr/csc if the contest is closed.
+
+preliminary csc and ogr contest support standard.
+
+
+=== build 308 (2 Jun 1999) ===
+
+fixed interop problem between 306+ SPARC proxies and non-SPARC 443+
+clients.
+
+fixed rare silent exit problem with all unix platforms except Linux
+triggered by broken pipe on server connection.
+
+pidfile is now deleted on proper proxy shutdown.
+
+enhancement of network data decoding loop to reduce amount of wasted
+cpu time while waiting for full network packets to be received.
+
+improved idle connection detection to locate additional cases of
+open idle network connections, and infinite buffer filling.
+
+when the ignore/allow host rulesets are reloaded, currently established
+client connections are immediately reevaluated and disconnected on match.
+
+connection establishment is now non-blocking again to allow connects
+to occur without interrupting normal operations of the main loop.
+
+
+
+=== build 307 ===:
+
+added expertmode ([rc564]/expertmode) to bypass the automatic treshold 
+adjustments
+
+connection keep-alive header (added in 306) no longer transmitted,
+only proxy-connection keep-alive, on upstream server connections.
+
+when responding to an incoming client, connection keep-alive header
+only sent to a client if it requested a keep-alive.
+
+reduced cpu usage of extended xfd select operations, including logic
+to reduce number of subselect statements needed, especially on win32.
+
+
+	
+=== build 306 ===:
+
+new "generic proxy" support added as new firewall connection method.
+
+proxy tries harder to really hand out the requested blocksize
+
+complete ACL with [ignoredip] AND [allowedip] section and a
+allowincoming parameter to totally block incoming traffic.
+
+removed random block generation and randomprefix tracking.  random
+generation should now only be done by clients when necessary.
+
+dynamically adjusting maxready buffer limits based on keyrate-averages
+
+sliding keyrate average window now defaults to one day with more
+freedom to adjust these values.
+
+dupechecking on fullservers and personalproxies
+
+fullservers check in every connectperiod even if there's now work
+
+outgoing connection errors, such as "connection refused", are
+detected properly now.
+
+personal proxy buffers now use a variant of the original (pre300) queues
+for storing blocks and additionally attempts to frequently update their
+contents back to disk.
+
+http tunnelling support improved to support proxies that do not maintain
+persistent socket connections.
+
+ogr project support added.
+
+logcompressor support reenabled, fork/zombie problems corrected.
+
+problems with selecting too many sockets on win32 eliminated.
+
+fullserver buffers opened in exclusive mode. improved fullserver repair
+and unlock. autorepair now invoked after any significant corruption
+detection, instead of just when the basic consistency checks fail.
+buffer cycle checking added.
+
+problems with not being able to resolve specified hostnames resolved and
+properly detected as failures.
+
+improved tolerances of time changes of the local machine.
+
+syncronized many more common files with those of client, including
+iniread, cputypes, win32 lurk, and win32 service functionality.
+
+possible problems with stagnant server or client connections with null
+socket handles not getting properly closed by proxy resolved.
+
+eliminated crash if a pidfile was specified but it could not be opened
+or insufficient file permissions existed to write to it.
+
+=== build 305 ===:
+
+(development version only)
+
+
+=== build 304 ===:
+
+status period option added to control period between periodic contest
+reports.
+
+total block counts per contest added to periodic contest reports.
+
+logverbosity now accepts a list of keywords.
+
+some console log messages slightly modified, others added.
+
+
+=== build 303 ===:
+
+temporarily disabled logcompressor until buffer corruption can be
+completely resolved. 
+
+buffers will autorepair when validation fails. 
+
+updated documentation and sample ini files to more closely reflect
+available options. 
+
+proxy no longer attempts to window as many block requests if the
+additional needed number is low. 
+
+pidfile now contains correct pid when -detach is used. 
+
+major rework of DES generation code to accomodate EFF macrospace
+distribution. 
+
+corrected some logging aspects on master. 
+
+DES blocks from closed contests are now discarded. 
+
+
+=== build 302 ===:
+
+nt service installation should work now blocks should be requested up to
+maxready now, connections still triggered by minready. 
+
+documentation for ignoredip section updated. 
+
+no longer attempts to request des blocks when des is closed. -repair and
+-unlock should no longer hang if your buffers have loops in them
+anymore. 
+
+lots of possibly problems that could lead to buffer corruption havebeen
+fixed. 
+
+contest start times that have already passed are no longer given to clients
+when they connect. 
+
+console output now indicates which contest when blocks are requested,
+received, delivered, etc. 
+
+proxy should no longer request infinitely many blocks when your buffer
+thresholds are too low. 
+
+keyserver/bindip now actually works. 
+
+many issues that could cause invalid size blocks to be saved or given to
+clients have also been addressed. 
+
+
+=== build 301 ===:
+
+minor bugfixes.
+
+
+=== build 300 ===:
+
+complete rewrite
