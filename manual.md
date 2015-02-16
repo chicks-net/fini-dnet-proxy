@@ -1,4 +1,4 @@
-distributed.net Personal Proxy Manual {align="center"}
+distributed.net Personal Proxy Manual
 =====================================
 
  
@@ -49,7 +49,7 @@ refer to the [FAQ-o-matic](http://faq.distributed.net/) or e-mail
 
 [Additional support](#additionalsupport)
 
-### INTRODUCTION {align="left"}
+### INTRODUCTION
 
 This release of the v2 Personal Proxy will allow you to serve all recent
 v2 distributed.net Bovine clients. It allows you to establish one of
@@ -66,7 +66,7 @@ contact one of the real proxies.
 
  
 
-### PROXY BUILD NUMBERS AND CLIENT VERSIONS SUPPORTED {align="left"}
+### PROXY BUILD NUMBERS AND CLIENT VERSIONS SUPPORTED
 
 Personal proxies are distinguished by the "build number" that is
 associated with each new version.
@@ -81,7 +81,7 @@ associated with each new version.
 
  
 
-### PROXY BUFFER FILES {align="left"}
+### PROXY BUFFER FILES
 
 The personal proxy uses buffer files to store all blocks that are
 pending distribution to client, or awaiting transfer to an upstream
@@ -123,7 +123,7 @@ rename the file to something else or delete it.
 
  
 
-### INSTALLATION AND OPERATION OF THE PERSONAL PROXY {align="left"}
+### INSTALLATION AND OPERATION OF THE PERSONAL PROXY
 
 Since you have this file, you probably have already downloaded and
 unpacked the proper distribution for your machine. If not, see
@@ -140,7 +140,7 @@ be created in a directory relative to the current directory.
 
  
 
-### CONFIGURATION {align="left"}
+### CONFIGURATION
 
 Edit the ini file with a standard text editor and verify the settings.
 Depending upon the number of clients you are serving, you may want to
@@ -171,7 +171,7 @@ the one that comes with the new proxy-tarball.
 
  
 
-### CONFIGURATION: Buffer sizes {align="left"}
+### CONFIGURATION: Buffer sizes 
 
 The personal proxy requires you to specify the minimum and maximum
 number of "blocks" that it should try to keep ready at all times for
@@ -241,9 +241,9 @@ minkeysready.
 
  
 
-### CONFIGURATION: Settings {align="left"}
+### CONFIGURATION: Settings 
 
-### The [KeyServer] Setting {align="center"}
+### The [KeyServer] Setting
 
 **[KeyServer]/ipaddress:** the IP address or hostname of the keyserver
 from which the proxy will retrieve and send keyblocks from.
@@ -311,7 +311,7 @@ upload or download a large number of blocks at a single time, and it
 seems that individual server connections are slow or have high latency.
 The default value is 1 and the maximum number you can specify is 4.
 
-### The [ports] Settings {align="center"}
+### The [ports] Settings
 
 **[ports]/listenaddress:** The IP address of the machine this personal
 proxy is running on. This is optional and only needed if the machine has
@@ -350,7 +350,7 @@ normally is not required. You can try to increase timeout if default
 value is not enough for your client (e.g. it having a long
 time-consuming benchmark on unknown cpu.)
 
-### The [misc] Settings {align="center"}
+### The [misc] Settings
 
 **[misc]/statusperiod:** this is the number of seconds between the
 status reports from each of the current contests are printed out to the
@@ -382,7 +382,7 @@ for Unix perproxies.
 automatically updated and maintained by the proxy itself each time it
 connects to the keyserver. You should not modify or adjust this value.
 
-### The [console] Settings {align="center"}
+### The [console] Settings
 
 **[console]/logfileconsole**: name of console log file
 
@@ -477,7 +477,7 @@ use log parsing or log processing utilities. You should contact the
 authors of your utilities to obtain a version that is able to parse the
 new 4-digit year format, and accommodate localtime timestamps.
 
-### RC5-72 Related Settings. {align="center"}
+### RC5-72 Related Settings.
 
 **[rc5-72]/logfilekeyblock:** name of log file of all completed
 keyblocks
@@ -534,7 +534,7 @@ in multiples of this value.
 
  
 
-### Other Projects {align="center"}
+### Other Projects
 
 ****[ogrng]/[ogrp2]/[desII]/[csc]/[ogr]/[rc564]****
  see the [rc5-72] section for the entries that you can put here, and
@@ -542,7 +542,7 @@ what they do....
 
  
 
-### Access Control {align="center"}
+### Access Control
 
 **[ignoredip]/[allowedip]**
  These two sections provide functionality for allowing and denying
@@ -577,7 +577,7 @@ Additionally, you can enter masks using any of these forms:
 
  
 
-### CONFIGURATION: Generic proxy mode {align="left"}
+### CONFIGURATION: Generic proxy mode
 
 Build 306 of the personal proxy introduced a new method of firewall
 compatibility communications, known as "generic proxy" (a name also used
@@ -617,7 +617,7 @@ An example for a WinGate telnet proxy is:
 
  
 
-### OUTPUT: Console log {align="left"}
+### OUTPUT: Console log
 
 While the proxy is running, it displays countless numbers of messages to
 indicate its current status. Because of the potentially large volume of
@@ -660,7 +660,7 @@ Some messages explained:
 
  
 
-### OUTPUT: Keyblock log {align="left"}
+### OUTPUT: Keyblock log
 
 The personal proxy will also output so-called "key logs" which record
 details of each completed block that is reported to it by a client.
@@ -847,7 +847,7 @@ keyblock log section above.
 
 
 
-### Additional Support {align="left"}
+### Additional Support
 
 If you need further assistance with the distributed.net personal proxy,
 please take a look at [FAQ-o-matic](http://faq.distributed.net/) then if
