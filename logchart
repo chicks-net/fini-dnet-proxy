@@ -1,0 +1,48 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+use Data::Dumper;
+use DateTime;
+use Chart::Strip;
+
+my @files = @ARGV;
+
+foreach my $f (@files) {
+	die "no $f" unless -f $f;
+}
+
+foreach my $filename (@files) {
+	my $fh;
+	open($fh,'<',$filename) or die "bad open($filename): $!";
+
+	while ( my $line = <$fh> ) {
+		next unless $line =~ /tot=/;
+		chomp($line);
+		my ($time,$raw_ready,$done,$rate,$tot) = split(/,\s*/,$line);
+		my ($project,$ready) = split(/\s+/,$raw_ready);
+		my $epoch = logtime2epoch($time);
+		print "$epoch $project $ready $done\n";
+	}
+
+	close($fh) or die "$!";
+}
+
+sub logtime2epoch {
+	my ($logtime) = @_;
+
+	my ($date,$time) = split(/ /,$logtime);
+	my ($year,$month,$day) = split(/-/,$date);
+	my ($hour,$minute,$second)  = split(/:/,$time);
+
+	my $ts_obj = DateTime->new(
+		year      => 2015,
+		month     => 2,
+		day       => 17,
+		hour      => $hour,
+		minute    => $minute,
+		second    => $second,
+		time_zone => 'UTC',
+	);
+	return $ts_obj->epoch();
+}
